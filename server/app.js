@@ -98,6 +98,29 @@ app.get("/logout",(req,res,next)=>{
     })
 })
 
+// Simple classification endpoint (keyword-based heuristic)
+app.post('/classify', (req, res) => {
+    const { text } = req.body || {}
+    if (!text || typeof text !== 'string') return res.status(400).json({ error: 'Missing text' })
+
+    const t = text.toLowerCase()
+    const mapping = [
+        { cat: 'Dental', kws: ['tooth', 'toothache', 'dental', 'tooth pain', 'cavity'] },
+        { cat: 'Mental Health', kws: ['anxiety', 'depression', 'therapy', 'mental', 'stress'] },
+        { cat: 'Vision', kws: ['eye', 'vision', 'glasses', 'contact'] },
+        { cat: 'Pharmacy', kws: ['medication', 'prescription', 'pill', 'pharmacy'] },
+        { cat: 'Primary Care', kws: ['fever', 'cough', 'doctor', 'clinic', 'pain'] },
+    ]
+
+    for (const m of mapping) {
+        for (const kw of m.kws) {
+            if (t.includes(kw)) return res.json({ category: m.cat })
+        }
+    }
+
+    return res.json({ category: 'Other' })
+})
+
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);

@@ -1,0 +1,20 @@
+.analyzing-page{display:flex;justify-content:center;align-items:flex-start;padding:80px 20px;background:linear-gradient(180deg,#f6feff,#f3fbfb)}
+.analyzing-card{background:#fff;max-width:720px;width:100%;border-radius:14px;padding:28px 28px;box-shadow:0 18px 60px rgba(2,6,23,0.06);text-align:left}
+.analyzing-card h2{margin:0 0 6px;color:#053440;font-size:22px}
+.analyzing-card .muted{color:#547778;margin:0 0 18px}
+.progress-wrap{background:#eef7f8;border-radius:999px;height:12px;overflow:hidden;margin-bottom:8px}
+.progress-bar{height:100%;background:linear-gradient(90deg,#06b6d4,#00a3a3);width:0;transition:width 480ms ease}
+.progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;color:#4b6b6d}
+.step-indicator{font-weight:600}
+.percent{font-weight:700}
+.status{display:flex;align-items:center;gap:12px}
+.spinner{width:36px;height:36px;border-radius:50%;background:conic-gradient(#06b6d4 0% 40%, transparent 40% 100%);animation:spin 1s linear infinite}
+.status-text{font-weight:600;color:#053440}
+.reassure{margin-top:14px;color:#6b8b8d;font-size:13px}
+
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+@media (max-width:600px){
+  .analyzing-page{padding:40px 16px}
+  .analyzing-card{padding:20px}
+}

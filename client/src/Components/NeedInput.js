@@ -13,7 +13,7 @@ const NeedInput = () => {
       return
     }
     try { sessionStorage.setItem('healthNeed', text.trim()) } catch (e) { console.warn(e) }
-    window.location.href = '/dashboard'
+    window.location.href = '/analyzing'
   }
 
   return (
