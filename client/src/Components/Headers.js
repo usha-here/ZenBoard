@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import './header.css'
-import {NavLink} from 'react-router-dom'
+import {NavLink, useNavigate, useLocation} from 'react-router-dom'
 import axios from 'axios'
 
 
@@ -8,6 +8,9 @@ import axios from 'axios'
 const Headers = () => {
   const [userdata, setUserdata] = useState({});
   console.log("response",userdata)
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const getUser = async () => {
       try {
           const response = await axios.get("http://localhost:3001/login/success", { withCredentials: true });
@@ -23,6 +26,12 @@ const Headers = () => {
   useEffect(()=>{
     getUser()
   },[])
+  // redirect logged-in users who land on /login to the need input page
+  useEffect(()=>{
+    if (Object.keys(userdata).length > 0 && location.pathname === '/login'){
+      navigate('/need')
+    }
+  },[userdata, location, navigate])
   return (
     <>
     <header>

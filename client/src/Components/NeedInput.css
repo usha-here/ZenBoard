@@ -1,0 +1,24 @@
+/* Minimal, accessible styles for the NeedInput page */
+.need-page{display:flex;justify-content:center;align-items:flex-start;padding:48px 20px;background:linear-gradient(180deg,#f6feff,#f3fbfb)}
+.need-card{background:#fff;max-width:780px;width:100%;border-radius:14px;padding:28px 30px;box-shadow:0 12px 40px rgba(2,6,23,0.06)}
+.need-header{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.need-header h1{font-size:24px;margin:0;color:#053440;font-weight:700}
+.health-icon{flex:0 0 36px}
+.need-form{display:flex;flex-direction:column;gap:12px}
+.need-textarea{width:100%;resize:vertical;min-height:140px;padding:14px 16px;border-radius:10px;border:1px solid #d6e8ea;font-size:16px;line-height:1.4;font-family:inherit;color:#072b31;background:linear-gradient(180deg,#ffffff,#fbfeff)}
+.need-textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(6,166,181,0.12);border-color:#06a6b5}
+.need-meta{display:flex;justify-content:space-between;align-items:center;color:#536d6f;font-size:13px}
+.help-text{opacity:0.9}
+.char-count{opacity:0.7}
+.actions{display:flex;justify-content:flex-end;margin-top:6px}
+.next-btn{background:linear-gradient(90deg,#06b6d4,#00a3a3);border:none;color:white;padding:12px 20px;border-radius:10px;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 8px 22px rgba(3,29,34,0.12)}
+.next-btn:active{transform:translateY(1px)}
+.error{color:#9b1c1c;background:#fff1f1;padding:8px 12px;border-radius:8px;border:1px solid #f5c2c2}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media (max-width:600px){
+  .need-card{padding:20px;border-radius:12px}
+  .need-header h1{font-size:20px}
+  .need-textarea{min-height:120px}
+  .next-btn{width:100%}
+}
