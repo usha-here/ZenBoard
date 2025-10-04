@@ -2,7 +2,7 @@ require('dotenv').config();
 const express=require('express');
 const app=express();
 const cors=require('cors');
-const PORT=3000;
+const PORT=3001;
 require('./db/conn');
 const session = require("express-session");
 const passport = require("passport");
@@ -13,7 +13,7 @@ const clientid="220885124105-n55avtdvtf0mbs13d84do9fnqpr429bm.apps.googleusercon
 const clientsecret="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"
 
 app.use(cors({
-    origin:'http://localhost:3000/',
+    origin:'http://localhost:3000',
     credentials:true,
     methods:['GET','POST','PUT','DELETE'],
 })); 
@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(session({
     secret:"123456hihihihihihi",
     resave:false,
-    saveUninitialized:true
+    saveUninitialized:true,
 }))
 
 //initialize passport ->setup passport 
@@ -41,6 +41,7 @@ passport.use(
     },
     //above code return asyn data
     async(accessToken,refreshToken,profile,done)=>{
+        console.log("profile",profile)
         try {
             let user = await userdb.findOne({googleId:profile.id});
 
@@ -70,6 +71,32 @@ passport.serializeUser((user,done)=>{
 passport.deserializeUser((user,done)=>{
     done(null,user);
 });
+
+//now we are done with initalizing passport .
+//now we have to initialize google oauth
+
+app.get("/auth/google",passport.authenticate("google",{scope:["profile","email"]}));
+
+app.get("/auth/google/callback",passport.authenticate("google",{
+    successRedirect:"http://localhost:3000/dashboard",   //where to go after success
+    failureRedirect:"http://localhost:3000/login"   //where to go if unsuccess login
+}))
+
+//to get user data after login
+app.get("/login/success",async(req,res)=>{
+   if(req.user){
+        res.status(200).json({message:"user Login",user:req.user})
+    }else{
+        res.status(400).json({message:"Not Authorized"})
+    }
+})
+
+app.get("/logout",(req,res,next)=>{
+    req.logout(function(err){
+        if(err){return next(err)}
+        res.redirect("http://localhost:3000/");
+    })
+})
 
 
 app.listen(PORT,()=>{

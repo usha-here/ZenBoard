@@ -1,7 +1,28 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import './header.css'
 import {NavLink} from 'react-router-dom'
+import axios from 'axios'
+
+
+
 const Headers = () => {
+  const [userdata, setUserdata] = useState({});
+  console.log("response",userdata)
+  const getUser = async () => {
+      try {
+          const response = await axios.get("http://localhost:3001/login/success", { withCredentials: true });
+          setUserdata(response.data.user)
+      } catch (error) {
+          console.log("error", error)
+      }
+  }
+  //logout
+   const logout = ()=>{
+        window.open("http://localhost:3001/logout","_self")
+    }
+  useEffect(()=>{
+    getUser()
+  },[])
   return (
     <>
     <header>
@@ -12,9 +33,16 @@ const Headers = () => {
             <div className='right'>
                 <ul>
                     <li><NavLink to="/">Home</NavLink></li>
-                    <li><NavLink to="/login">Login</NavLink></li>
-                    <li><NavLink to="/dashboard">Dashboard</NavLink></li>
-                    <li><img src="zen.png" style={{width: '50px', height: '50px', borderRadius: '50%'}} alt=""/></li>
+                    {
+                      Object?.keys(userdata).length > 0 ?(
+                      <>
+                        <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+                                        <li onClick={logout}>Logout</li>
+                       <li style={{color: 'white', fontWeight: 'bold', marginLeft: '10px'}}>
+  {userdata.displayName ? `${userdata.displayName}!` : userdata.email}
+</li></>):
+                        <li><NavLink to="/login">Login</NavLink></li>
+                    }
                 </ul>
             </div>
         </nav>

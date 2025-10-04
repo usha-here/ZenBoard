@@ -2,6 +2,10 @@ import React from 'react'
 import './login.css'
 
 const Login = () => {
+  const loginwithgoogle = ()=>{
+    window.open("http://localhost:3001/auth/google/callback","_self")
+}
+
   return (
     <>
     <div className='login-page'>
@@ -13,7 +17,7 @@ const Login = () => {
                     <button>Login</button>
                     <p className='message'>Not Registerd? <a href="#">Create an account</a></p>
                 </form>
-                <button className='login-with-google-btn'>
+                <button className='login-with-google-btn' onClick={loginwithgoogle}>
                     Sign In With Google
                 </button>
             </div>
